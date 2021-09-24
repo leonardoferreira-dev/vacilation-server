@@ -47,4 +47,13 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.get('/users', async (req, res) => {
+  try {
+    const user = await User.find();
+    return res.send(user);
+  } catch (err) {
+    return res.status(200).json({ erro: 'Ocorreu um erro ao logar, tente novamente' });
+  }
+});
+
 module.exports = (app) => app.use('/auth', router);

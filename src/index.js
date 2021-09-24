@@ -15,9 +15,6 @@ app.use(morgan('dev'));
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')));
 
 require('./controllers/authController')(app);
-require('./controllers/clientController')(app);
-require('./controllers/adressesController')(app);
-require('./controllers/invoicesController')(app);
-require('./controllers/insuredController')(app);
+require('./controllers/vacilationController')(app);
 
 app.listen(process.env.PORT || 3333);
