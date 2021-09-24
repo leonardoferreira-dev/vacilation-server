@@ -6,10 +6,13 @@ const Vacilations = require('../models/vacilations');
 
 router.use(authMiddleware);
 
-router.post('/:userId', async (req, res) => {
+router.post('/', async (req, res) => {
+  const { description, user_id } = req.body;
+
   try {
     const vacilation = await Vacilations.create({
-      user_id: req.params.userId,
+      description,
+      user_id,
     });
 
     await vacilation.save();
@@ -19,15 +22,16 @@ router.post('/:userId', async (req, res) => {
   }
 });
 
-// router.get('/vacilation/:userId/:type', async (req, res) => {
-//   const { userId, type } = req.params;
-//   try {
-//     const vacilations = await Vacilations.find({ user_id: userId, user_type: type });
-//     return res.send(vacilations);
-//   } catch (err) {
-//     return res.status(400).send({ error: err });
-//   }
-// });
+router.get('/', async (req, res) => {
+  const { user } = req.query;
+
+  try {
+    const vacilations = await Vacilations.find({ user_id: user });
+    return res.send(vacilations);
+  } catch (err) {
+    return res.status(400).send({ error: err });
+  }
+});
 
 // router.get('/vacilation/:addressId', async (req, res) => {
 //   const { addressId } = req.params;

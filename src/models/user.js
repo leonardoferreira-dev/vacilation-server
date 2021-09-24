@@ -16,6 +16,11 @@ const dbUser = new mongoose.Schema({
     type: String,
     required: false,
   },
+  vacilations: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'dbVacilation',
+    required: false,
+  },
   user_type: {
     type: String,
     default: 'cliente',
