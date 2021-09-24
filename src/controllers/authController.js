@@ -19,6 +19,8 @@ router.post('/register', async (req, res) => {
   try {
     if (await User.findOne({ email })) { return res.status(400).send({ erro: 'Usuário já cadastrado' }); }
     const user = await User.create(req.body);
+  console.log("trazendo usuasrio", user)
+
     user.password = undefined;
     return res.send({ user, token: generateToken({ id: user.id.toString }) });
   } catch (err) {
@@ -30,6 +32,9 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select('+password');
+
+
+  console.log("trazendo usuasrio", user)
 
   try {
     if (!user) { return res.status(200).json({ erro: 'O Usuario não Foi encontrado' }); }
